@@ -1,0 +1,33 @@
+import { combineReducers} from 'redux'
+
+const usuarioInicial = null
+
+function usuario(state = usuarioInicial, action){
+    switch(action.type){
+        case 'LOGA_USUARIO':
+        const usuarioLogado = action.dados
+        return usuarioLogado
+        case 'DESLOGA_USUARIO':
+        const usuarioDeslogado = null
+        return usuarioDeslogado
+        default:
+        return state
+    }
+}
+
+function postits(state = [], action){ // array vazia
+    switch(action.type){
+        default: 
+        return state
+    }
+}
+
+// agora temos dois redutores, usuario e postits
+//combinar os dois
+
+const reducers = combineReducers({
+    usuario: usuario, // propriedade:valor
+    postits: postits
+})
+
+export default reducers

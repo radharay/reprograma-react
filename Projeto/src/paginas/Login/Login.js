@@ -5,22 +5,32 @@ import Legenda from '../../componentes/Legenda/Legenda'
 import Campo from '../../componentes/Campo/Campo'
 import './Login.css'
 
-/*
-1) O componente pode mudar de estado? Sim // Class
-2) O que muda? setState({ desabilitado: false }) ou  // setState({ desabilitado: true })
-3) Qual o estado inicial? state = { desabilitado: false } // constructor
-4) O que faz ele mudar?
-// function onChange pra verificar se todos os campos estão corretos (não tem erro)
-*/
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.emailRef = React.createRef()
+
+    this.emailRef = React.createRef() // { current: null }
     this.senhaRef = React.createRef()
     this.state = { desabilitado: true }
   }
 
-  habilitaOuDesabilita = () => {
+  enviaDados = (evento) => {
+    evento.preventDefault()
+
+    const campoEmail = this.emailRef.current
+    const campoSenha = this.senhaRef.current
+
+    const dados = {
+      email: campoEmail.getValor(),
+      senha: campoSenha.getValor()
+    }
+
+    this.props.logaUsuario(dados)
+
+    this.props.historico.push('/')
+  }
+
+  habilitaOuDesabilitaBotao = () => {
     const campoEmail = this.emailRef.current
     const campoSenha = this.senhaRef.current
 
@@ -37,32 +47,17 @@ class Login extends Component {
         <h1>Login</h1>
         <p>Entre com seu email e senha.</p>
         
-        <Legenda htmlFor="email">Email:</Legenda>
-        <Campo 
-          ref={this.emailRef}
-          id="email" 
-          type="email" 
-          name="email" 
-          placeholder="Email" 
-          required 
-          onChange={this.habilitaOuDesabilita} 
-        />
-        
-        <Legenda htmlFor="senha">Senha:</Legenda>
-        <Campo 
-          ref={this.senhaRef}
-          id="senha" 
-          type="password" 
-          name="senha"
-          placeholder="Senha" 
-          required 
-          minLength={6}
-          onChange={this.habilitaOuDesabilita}
-        />
-        
-        <Botao desabilitado={this.state.desabilitado}>
-          Enviar
-        </Botao>
+        <form onSubmit={this.enviaDados}>
+          <Legenda htmlFor="email">Email:</Legenda>
+          <Campo ref={this.emailRef} id="email" type="email" name="email" placeholder="Email" required onChange={this.habilitaOuDesabilitaBotao} />
+          
+          <Legenda htmlFor="senha">Senha:</Legenda>
+          <Campo ref={this.senhaRef} id="senha" type="password" name="senha" placeholder="Senha" required minLength={6} onChange={this.habilitaOuDesabilitaBotao} />
+          
+          <Botao desabilitado={this.state.desabilitado}>
+            Enviar
+          </Botao>
+        </form>
 
         <Link url="/conta">Criar uma conta</Link>
       </main>

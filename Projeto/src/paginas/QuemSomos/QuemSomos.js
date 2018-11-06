@@ -1,10 +1,10 @@
 import React from 'react'
-import './Contato.css'
+import './QuemSomos.css'
 
-function Contato() {
+function QuemSomos() {
   return (
-    <main className="contato">
-      <h1>Contato</h1>
+    <main className="quem-somos">
+      <h1>Quem somos</h1>
       <p>
         Try to jump onto window and fall while scratching at wall eat from dog's food eat too 
         much then proceed to regurgitate all over living room carpet while humans eat dinner lick 
@@ -14,4 +14,4 @@ function Contato() {
   )
 }
 
-export default Contato
+export default QuemSomos
