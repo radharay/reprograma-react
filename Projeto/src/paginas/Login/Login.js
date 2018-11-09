@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { logaUsuario } from '../../redux/actions'
 import Link from '../../componentes/Link/Link'
 import Botao from '../../componentes/Botao/Botao'
 import Legenda from '../../componentes/Legenda/Legenda'
@@ -47,14 +48,14 @@ class Login extends Component {
       <main className="login">
         <h1>Login</h1>
         <p>Entre com seu email e senha.</p>
-
+        
         <form onSubmit={this.enviaDados}>
           <Legenda htmlFor="email">Email:</Legenda>
           <Campo ref={this.emailRef} id="email" type="email" name="email" placeholder="Email" required onChange={this.habilitaOuDesabilitaBotao} />
-
+          
           <Legenda htmlFor="senha">Senha:</Legenda>
           <Campo ref={this.senhaRef} id="senha" type="password" name="senha" placeholder="Senha" required minLength={6} onChange={this.habilitaOuDesabilitaBotao} />
-
+          
           <Botao desabilitado={this.state.desabilitado}>
             Enviar
           </Botao>
@@ -66,17 +67,7 @@ class Login extends Component {
   }
 }
 
-function passaAcoesNoProps(dispatch) {
-  return {
-    logaUsuario: (dados) => {
-      const acao = {
-        type: 'LOGA_USUARIO',
-        dados: dados
-      }
-      dispatch(acao)
-    }
-  }
-}
-const conectaNaStore = connect(null, passaAcoesNoProps)
-const LoginConectado = conectaNaStore(Login)
-export default LoginConectado 
+export default connect(
+  null, 
+  { logaUsuario }
+)(Login)
