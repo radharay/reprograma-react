@@ -37,16 +37,14 @@ function App(props) {
 
   return (
     <div className="app">
-      <Navbar usuario={usuario} deslogaUsuario={deslogaUsuario} />
+      <Navbar />
 
       <Switch>
         <Route path="/" exact render={() => {
           return usuario ? <Home /> : <Redirect to="/login" />
         }} />
 
-        <Route path="/login" render={(props) => {
-          return <Login historico={props.history} logaUsuario={logaUsuario} />
-        }}/>
+        <Route path="/login" component={Login}/>
         
         <Route path="/conta" component={Conta}/>
         <Route path="/quem-somos" component={QuemSomos} />
@@ -88,7 +86,7 @@ function passaFuncoesQueDisparamAcoesViaProps(dispatch){
 }
 
 const conectaNaStore = connect(passaDadosDoEstadoParaMeuComponente, passaFuncoesQueDisparamAcoesViaProps)
-{/* <App usuario = {usuario} logaUsuario={() =>} deslogaUsuario={()=>} /> */}
+// {/* <App usuario = {usuario} logaUsuario={() =>} deslogaUsuario={()=>} /> */}
 
  const AppConectada = withRouter(conectaNaStore(App))
 
