@@ -19,31 +19,28 @@ class Home extends Component {
     return (
       <main className="home">
         {this.state.carregando ? (
-          <img className="home__loading" src={carregando} alt="Carregando" />
+          <img className="home__carregando" src={carregando} alt="Carregando" />
         ) : (
+          <div>
+            <Postit />
+
             <div>
-              <Postit />
-              <div>
-                {this.props.postits.map(postit => (
-                  <Postit
-                    key={postit.id}
-                    id={postit.id}
-                    titulo={postit.titulo}
-                    texto={postit.texto}
-                  />
-                ))}
-              </div>
+              {this.props.postits.map(postit => (
+                <Postit 
+                  key={postit.id}
+                  id={postit.id}
+                  titulo={postit.titulo}
+                  texto={postit.texto}
+                />
+              ))}
             </div>
-          )}
+          </div>
+        )}
       </main>
     )
   }
 }
 
 export default connect(
-  (state) => ({
-    usuario: state.usuario,
-    postits: state.postits
-  })
+  (state) => ({ usuario: state.usuario, postits: state.postits })
 )(Home)
-
